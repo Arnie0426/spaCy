@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from .. import language_data as base
 from ..language_data import strings_to_exc, update_exc
-from ..language_data.tokenizer_exceptions import _URL_PATTERN
 from ..language_data.punctuation import ALPHA_LOWER
 
 from .punctuation import ELISION, HYPHENS
@@ -207,8 +206,6 @@ REGULAR_EXP += ["^{prefix}[{hyphen}][{alpha}][{alpha}{elision}{other_hyphen}\-]*
 REGULAR_EXP += ["^{prefix}[{elision}][{alpha}][{alpha}{elision}{hyphen}\-]*$".format(
     prefix=p, elision=HYPHENS, hyphen=other_hyphens, alpha=ALPHA_LOWER)
                 for p in ELISION_PREFIX]
-
-REGULAR_EXP.append(_URL_PATTERN)
 
 TOKEN_MATCH = re.compile('|'.join('(?:{})'.format(m) for m in REGULAR_EXP), re.IGNORECASE).match
 
